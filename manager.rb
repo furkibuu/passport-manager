@@ -9,13 +9,13 @@ DB_FILE = 'passwords.json'
 MASTER_HASH_FILE = 'master.hash'
 prompt = TTY::Prompt.new
 
-# Master hash kaydet (ilk seferde)
+
 def save_master_hash(master_password)
   hash = Digest::SHA256.hexdigest(master_password)
   File.write(MASTER_HASH_FILE, hash)
 end
 
-# Master hash kontrolü
+
 def verify_master_password(input)
   return false unless File.exist?(MASTER_HASH_FILE)
   stored_hash = File.read(MASTER_HASH_FILE).strip
@@ -130,7 +130,6 @@ def menu(prompt, key)
   end
 end
 
-# Ana giriş
 if !File.exist?(MASTER_HASH_FILE)
   prompt.warn("Bu ilk girişiniz. Bir ana şifre belirleyin.")
   new_master = prompt.mask("Yeni Ana Şifre:")
