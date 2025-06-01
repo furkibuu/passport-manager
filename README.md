@@ -72,7 +72,7 @@ pause
 | `manager.rb`     | Uygulamanın ana kodu                             |
 | `passwords.json` | Şifrelerin şifreli olarak tutulduğu dosya        |
 | `master.hash`    | Ana şifrenin SHA256 hash olarak saklandığı dosya |
-| `çalıştır.bat`   | Windows için çalıştırma kolaylığı sağlar         |
+| `start.bat`   | Windows için çalıştırma kolaylığı sağlar         |
 
 ---
 
