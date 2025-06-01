@@ -9,7 +9,6 @@ DB_FILE = 'passwords.json'
 MASTER_HASH_FILE = 'master.hash'
 prompt = TTY::Prompt.new
 
-
 def save_master_hash(master_password)
   hash = Digest::SHA256.hexdigest(master_password)
   File.write(MASTER_HASH_FILE, hash)
@@ -69,6 +68,11 @@ def menu(prompt, key)
         m.choice "📧 Gmail", "Gmail"
         m.choice "🟣 Instagram", "Instagram"
         m.choice "🇹🇷 e-Devlet", "e-Devlet"
+        m.choice "🐦 Twitter", "Twitter"
+        m.choice "📸 TikTok", "TikTok"
+        m.choice "💼 LinkedIn", "LinkedIn"
+        m.choice "📱 WhatsApp", "WhatsApp"
+        m.choice "💬 Telegram", "Telegram"
         m.choice "📘 Facebook", "Facebook"
         m.choice "📦 Amazon", "Amazon"
         m.choice "➕ Başka bir hizmet yaz", :manual
@@ -130,6 +134,7 @@ def menu(prompt, key)
   end
 end
 
+
 if !File.exist?(MASTER_HASH_FILE)
   prompt.warn("Bu ilk girişiniz. Bir ana şifre belirleyin.")
   new_master = prompt.mask("Yeni Ana Şifre:")
@@ -145,8 +150,14 @@ else
   entered = prompt.mask("🔑 Ana şifrenizi girin:")
   if verify_master_password(entered)
     prompt.ok("✔️ Giriş başarılı.")
+    prompt.say("Hoş geldiniz! Şifre yöneticisine erişim sağlandı.")
+    prompt.say("Lütfen aşağıdaki menüden işleminizi seçin.")
+    
     menu(prompt, entered)
   else
+    prompt.say("❌ Ana şifre yanlış.")
+    prompt.say("❌ Ana şifrenizi unuttuysanız, programı silip tekrar kurmanız gerekecek.")
     prompt.error("❌ Hatalı şifre. Program kapatılıyor.")
+    exit(1)
   end
 end
